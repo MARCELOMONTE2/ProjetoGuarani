@@ -14,5 +14,5 @@ Teste Guarani Sistemas
 - Fast Report
 - Github
 ## 📋Orientações 
-- Junto com o projeto está disponibilizado uma base de bados para facilitar os testes no aplicativo.
+- Junto com o projeto está disponibilizado uma base de bados para facilitar os testes no aplicativo, foi disponibilizado também um script para criação de uma base de dados nova  em FirdBird 3.0, se necessário.
 - Na tela principal do aplicativo, existe um menu no alto a esquerda onde poderá ser acessado os cadastros, a tela de pedidos e o relatório solicitados no teste.
