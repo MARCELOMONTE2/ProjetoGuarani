@@ -1,0 +1,54 @@
+unit uCadProduto;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB,uDmVendas, Vcl.StdCtrls,
+  Vcl.Mask, Vcl.ExtCtrls, Vcl.DBCtrls, Vcl.Buttons;
+
+type
+  TfrmCadProduto = class(TForm)
+    dsProduto: TDataSource;
+    Panel1: TPanel;
+    BitBtn1: TBitBtn;
+    BitBtn2: TBitBtn;
+    BitBtn3: TBitBtn;
+    BitBtn5: TBitBtn;
+    BitBtn4: TBitBtn;
+    Panel2: TPanel;
+    Label1: TLabel;
+    DBEdit1: TDBEdit;
+    Label2: TLabel;
+    DBEdit2: TDBEdit;
+    Label3: TLabel;
+    DBEdit3: TDBEdit;
+    Label4: TLabel;
+    DBEdit4: TDBEdit;
+    BitBtn6: TBitBtn;
+    procedure BitBtn5Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCadProduto: TfrmCadProduto;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmCadProduto.BitBtn5Click(Sender: TObject);
+begin
+  close;
+end;
+
+procedure TfrmCadProduto.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  action := cafree;
+end;
+
+end.

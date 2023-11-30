@@ -1,0 +1,48 @@
+unit uDmVendas;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Data.DB, IBX.IBDatabase, IBX.IBCustomDataSet,
+  IBX.IBQuery, IBX.IBTable, IBX.IBUpdateSQL;
+
+type
+  TDmVendas = class(TDataModule)
+    IBConectVendas: TIBDatabase;
+    IBTransaction1: TIBTransaction;
+    qryProduto: TIBQuery;
+    qryProdutoID_PRODUTO: TIntegerField;
+    qryProdutoDESCRICAO: TIBStringField;
+    qryProdutoMARCA: TIBStringField;
+    qryProdutoPRECO: TIBBCDField;
+    qryCliente: TIBQuery;
+    qryClienteBAIRRO: TIBStringField;
+    qryClienteCIDADE: TIBStringField;
+    qryClienteCNPJ: TIBStringField;
+    qryClienteCOMPLEMENTO_END: TIBStringField;
+    qryClienteID_CLIENTE: TIntegerField;
+    qryClienteLOGRADOURO: TIBStringField;
+    qryClienteNOME_FANTASIA: TIBStringField;
+    qryClienteNUMERO_END: TIBStringField;
+    qryClienteRAZAO_SOCIAL: TIBStringField;
+    qryClienteTELEFONE: TIBStringField;
+    qryClienteUF: TIBStringField;
+    IBUpdateSQLCliente: TIBUpdateSQL;
+    IBQuery1: TIBQuery;
+    IBUpdateSQLProduto: TIBUpdateSQL;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  DmVendas: TDmVendas;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+end.

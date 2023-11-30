@@ -1,0 +1,379 @@
+object DmVendas: TDmVendas
+  Height = 480
+  Width = 640
+  object IBConectVendas: TIBDatabase
+    Connected = True
+    DatabaseName = 
+      'C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\DB\VENDAS_DB.F' +
+      'DB'
+    Params.Strings = (
+      'user_name=SYSDBA'
+      'password=masterkey'
+      'lc_ctype=WIN1252')
+    LoginPrompt = False
+    DefaultTransaction = IBTransaction1
+    ServerType = 'IBServer'
+    Left = 32
+    Top = 8
+  end
+  object IBTransaction1: TIBTransaction
+    Active = True
+    DefaultDatabase = IBConectVendas
+    Params.Strings = (
+      'read_committed'
+      'rec_version'
+      'nowait')
+    Left = 136
+    Top = 8
+  end
+  object qryProduto: TIBQuery
+    Database = IBConectVendas
+    Transaction = IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
+    SQL.Strings = (
+      'SELECT '
+      'ID_PRODUTO, DESCRICAO, MARCA, PRECO'
+      ' FROM PRODUTO')
+    UpdateObject = IBUpdateSQLProduto
+    PrecommittedReads = False
+    Left = 296
+    Top = 16
+    object qryProdutoID_PRODUTO: TIntegerField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'ID_PRODUTO'
+      Origin = 'PRODUTO.ID_PRODUTO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = True
+      Required = True
+    end
+    object qryProdutoDESCRICAO: TIBStringField
+      FieldName = 'DESCRICAO'
+      Origin = 'PRODUTO.DESCRICAO'
+      Required = True
+      Size = 50
+    end
+    object qryProdutoMARCA: TIBStringField
+      FieldName = 'MARCA'
+      Origin = 'PRODUTO.MARCA'
+      Required = True
+      Size = 50
+    end
+    object qryProdutoPRECO: TIBBCDField
+      FieldName = 'PRECO'
+      Origin = 'PRODUTO.PRECO'
+      Required = True
+      Precision = 18
+      Size = 2
+    end
+  end
+  object qryCliente: TIBQuery
+    Database = IBConectVendas
+    Transaction = IBTransaction1
+    AutoCalcFields = False
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
+    SQL.Strings = (
+      'select FIRST 10 BAIRRO, CIDADE, CNPJ, COMPLEMENTO_END, '
+      'ID_CLIENTE, LOGRADOURO, NOME_FANTASIA, '
+      'NUMERO_END, RAZAO_SOCIAL, TELEFONE, UF'
+      'from CLIENTES  order by ID_CLIENTE desc')
+    UpdateObject = IBUpdateSQLCliente
+    PrecommittedReads = False
+    Left = 216
+    Top = 8
+    object qryClienteID_CLIENTE: TIntegerField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'ID_CLIENTE'
+      Origin = 'CLIENTES.ID_CLIENTE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = True
+      Required = True
+    end
+    object qryClienteCNPJ: TIBStringField
+      FieldName = 'CNPJ'
+      Origin = 'CLIENTES.CNPJ'
+      Size = 14
+    end
+    object qryClienteNOME_FANTASIA: TIBStringField
+      FieldName = 'NOME_FANTASIA'
+      Origin = 'CLIENTES.NOME_FANTASIA'
+      Required = True
+      Size = 50
+    end
+    object qryClienteRAZAO_SOCIAL: TIBStringField
+      FieldName = 'RAZAO_SOCIAL'
+      Origin = 'CLIENTES.RAZAO_SOCIAL'
+      Required = True
+      Size = 50
+    end
+    object qryClienteTELEFONE: TIBStringField
+      FieldName = 'TELEFONE'
+      Origin = 'CLIENTES.TELEFONE'
+      Required = True
+      EditMask = '\(99\)00000-0000;0;_'
+      Size = 15
+    end
+    object qryClienteLOGRADOURO: TIBStringField
+      FieldName = 'LOGRADOURO'
+      Origin = 'CLIENTES.LOGRADOURO'
+      Size = 50
+    end
+    object qryClienteNUMERO_END: TIBStringField
+      FieldName = 'NUMERO_END'
+      Origin = 'CLIENTES.NUMERO_END'
+    end
+    object qryClienteBAIRRO: TIBStringField
+      FieldName = 'BAIRRO'
+      Origin = 'CLIENTES.BAIRRO'
+      Size = 50
+    end
+    object qryClienteCIDADE: TIBStringField
+      FieldName = 'CIDADE'
+      Origin = 'CLIENTES.CIDADE'
+      Size = 50
+    end
+    object qryClienteCOMPLEMENTO_END: TIBStringField
+      FieldName = 'COMPLEMENTO_END'
+      Origin = 'CLIENTES.COMPLEMENTO_END'
+      Size = 50
+    end
+    object qryClienteUF: TIBStringField
+      FieldName = 'UF'
+      Origin = 'CLIENTES.UF'
+      FixedChar = True
+      Size = 2
+    end
+  end
+  object IBUpdateSQLCliente: TIBUpdateSQL
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID_CLIENTE,'
+      '  NOME_FANTASIA,'
+      '  RAZAO_SOCIAL,'
+      '  CNPJ,'
+      '  TELEFONE,'
+      '  LOGRADOURO,'
+      '  NUMERO_END,'
+      '  BAIRRO,'
+      '  CIDADE,'
+      '  UF,'
+      '  COMPLEMENTO_END'
+      'from CLIENTES '
+      'where'
+      '  ID_CLIENTE = :ID_CLIENTE')
+    ModifySQL.Strings = (
+      'update CLIENTES'
+      'set'
+      '  BAIRRO = :BAIRRO,'
+      '  CIDADE = :CIDADE,'
+      '  CNPJ = :CNPJ,'
+      '  COMPLEMENTO_END = :COMPLEMENTO_END,'
+      ''
+      '  LOGRADOURO = :LOGRADOURO,'
+      '  NOME_FANTASIA = :NOME_FANTASIA,'
+      '  NUMERO_END = :NUMERO_END,'
+      '  RAZAO_SOCIAL = :RAZAO_SOCIAL,'
+      '  TELEFONE = :TELEFONE,'
+      '  UF = :UF'
+      'where'
+      '  ID_CLIENTE = :OLD_ID_CLIENTE')
+    InsertSQL.Strings = (
+      'insert into CLIENTES'
+      
+        '  (BAIRRO, CIDADE, CNPJ, COMPLEMENTO_END, ID_CLIENTE, LOGRADOURO' +
+        ', NOME_FANTASIA, '
+      '   NUMERO_END, RAZAO_SOCIAL, TELEFONE, UF)'
+      'values'
+      
+        '  (:BAIRRO, :CIDADE, :CNPJ, :COMPLEMENTO_END, :ID_CLIENTE, :LOGR' +
+        'ADOURO, '
+      '   :NOME_FANTASIA, :NUMERO_END, :RAZAO_SOCIAL, :TELEFONE, :UF)')
+    DeleteSQL.Strings = (
+      'delete from CLIENTES'
+      'where'
+      '  ID_CLIENTE = :OLD_ID_CLIENTE')
+    Left = 56
+    Top = 88
+  end
+  object qryPedidos: TIBQuery
+    Database = IBConectVendas
+    Transaction = IBTransaction1
+    Active = True
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
+    SQL.Strings = (
+      
+        'select DATA_PEDIDO, ID_CLIENTE, ID_ITENSPEDIDO, ID_PEDIDO, TOTAL' +
+        '_PEDIDO '
+      ' from PEDIDO')
+    PrecommittedReads = False
+    Left = 328
+    Top = 96
+    object qryPedidosID_PEDIDO: TIntegerField
+      FieldName = 'ID_PEDIDO'
+      Origin = 'PEDIDO.ID_PEDIDO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryPedidosID_CLIENTE: TIntegerField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'ID_CLIENTE'
+      Origin = 'PEDIDO.ID_CLIENTE'
+      ReadOnly = True
+      Required = True
+    end
+    object qryPedidosDATA_PEDIDO: TDateTimeField
+      FieldName = 'DATA_PEDIDO'
+      Origin = 'PEDIDO.DATA_PEDIDO'
+    end
+    object qryPedidosID_ITENSPEDIDO: TIntegerField
+      FieldName = 'ID_ITENSPEDIDO'
+      Origin = 'PEDIDO.ID_ITENSPEDIDO'
+      Required = True
+    end
+    object qryPedidosTOTAL_PEDIDO: TIBBCDField
+      FieldName = 'TOTAL_PEDIDO'
+      Origin = 'PEDIDO.TOTAL_PEDIDO'
+      Precision = 18
+      Size = 2
+    end
+  end
+  object IBUpdateSQLProduto: TIBUpdateSQL
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID_PRODUTO,'
+      '  DESCRICAO,'
+      '  MARCA,'
+      '  PRECO'
+      'from PRODUTO '
+      'where'
+      '  ID_PRODUTO = :ID_PRODUTO')
+    ModifySQL.Strings = (
+      'update PRODUTO'
+      'set'
+      '  DESCRICAO = :DESCRICAO,'
+      '  MARCA = :MARCA,'
+      '  PRECO = :PRECO'
+      'where'
+      '  ID_PRODUTO = :OLD_ID_PRODUTO')
+    InsertSQL.Strings = (
+      'insert into PRODUTO'
+      '  (DESCRICAO, MARCA, PRECO)'
+      'values'
+      '  (:DESCRICAO, :MARCA, :PRECO)')
+    DeleteSQL.Strings = (
+      'delete from PRODUTO'
+      'where'
+      '  ID_PRODUTO = :OLD_ID_PRODUTO')
+    Left = 192
+    Top = 96
+  end
+  object IBUpdateSQLPedidos: TIBUpdateSQL
+    Left = 56
+    Top = 152
+  end
+  object qryItensPedidos: TIBQuery
+    Database = IBConectVendas
+    Transaction = IBTransaction1
+    Active = True
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
+    SQL.Strings = (
+      'Select'
+      
+        'i.ID_PEDIDO, i.ID_ITENS_PEDIDO, i.ID_PRODUTO, prd.descricao, prd' +
+        '.marca, prd.preco,'
+      
+        'i.QUANTIDADE, i.VALOR_TOTAL, i.VALOR_UNITARIO, p.TOTAL_PEDIDO,  ' +
+        'p.DATA_PEDIDO,'
+      'p.ID_CLIENTE, c.nome_fantasia'
+      'from ITENS_PEDIDO i'
+      'join PEDIDO p on p.id_pedido = i.id_pedido'
+      'left join produto prd on prd.id_produto = i.id_produto'
+      'join clientes c on c.id_cliente = p.id_cliente')
+    UpdateObject = IBUpdateSQLItensPedido
+    PrecommittedReads = False
+    Left = 352
+    Top = 168
+    object qryItensPedidosID_PEDIDO: TIntegerField
+      FieldName = 'ID_PEDIDO'
+      Origin = 'ITENS_PEDIDO.ID_PEDIDO'
+      Required = True
+    end
+    object qryItensPedidosID_ITENS_PEDIDO: TIntegerField
+      FieldName = 'ID_ITENS_PEDIDO'
+      Origin = 'ITENS_PEDIDO.ID_ITENS_PEDIDO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryItensPedidosID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+      Origin = 'ITENS_PEDIDO.ID_PRODUTO'
+      Required = True
+    end
+    object qryItensPedidosDESCRICAO: TIBStringField
+      FieldName = 'DESCRICAO'
+      Origin = 'PRODUTO.DESCRICAO'
+      Size = 50
+    end
+    object qryItensPedidosMARCA: TIBStringField
+      FieldName = 'MARCA'
+      Origin = 'PRODUTO.MARCA'
+      Size = 50
+    end
+    object qryItensPedidosPRECO: TIBBCDField
+      FieldName = 'PRECO'
+      Origin = 'PRODUTO.PRECO'
+      Precision = 18
+      Size = 2
+    end
+    object qryItensPedidosQUANTIDADE: TIntegerField
+      FieldName = 'QUANTIDADE'
+      Origin = 'ITENS_PEDIDO.QUANTIDADE'
+      Required = True
+    end
+    object qryItensPedidosVALOR_TOTAL: TIBBCDField
+      FieldName = 'VALOR_TOTAL'
+      Origin = 'ITENS_PEDIDO.VALOR_TOTAL'
+      Precision = 18
+      Size = 2
+    end
+    object qryItensPedidosVALOR_UNITARIO: TIBBCDField
+      FieldName = 'VALOR_UNITARIO'
+      Origin = 'ITENS_PEDIDO.VALOR_UNITARIO'
+      Required = True
+      Precision = 18
+      Size = 2
+    end
+    object qryItensPedidosTOTAL_PEDIDO: TIBBCDField
+      FieldName = 'TOTAL_PEDIDO'
+      Origin = 'PEDIDO.TOTAL_PEDIDO'
+      Precision = 18
+      Size = 2
+    end
+    object qryItensPedidosDATA_PEDIDO: TDateTimeField
+      FieldName = 'DATA_PEDIDO'
+      Origin = 'PEDIDO.DATA_PEDIDO'
+    end
+    object qryItensPedidosID_CLIENTE: TIntegerField
+      FieldName = 'ID_CLIENTE'
+      Origin = 'PEDIDO.ID_CLIENTE'
+      Required = True
+    end
+    object qryItensPedidosNOME_FANTASIA: TIBStringField
+      FieldName = 'NOME_FANTASIA'
+      Origin = 'CLIENTES.NOME_FANTASIA'
+      Required = True
+      Size = 50
+    end
+  end
+  object IBUpdateSQLItensPedido: TIBUpdateSQL
+    Left = 40
+    Top = 216
+  end
+end

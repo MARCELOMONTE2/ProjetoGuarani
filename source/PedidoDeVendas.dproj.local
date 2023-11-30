@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2023/10/05 11:24:03.000.979,=C:\Users\marce\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2023/10/12 10:55:30.000.366,=C:\Users\marce\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2023/11/23 16:56:04.000.906,=C:\Users\marce\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2023/11/23 16:59:53.000.567,C:\Users\marce\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\uCadCliente.dfm</Transaction>
+    <Transaction>2023/11/23 16:59:53.000.567,C:\Users\marce\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\uCadCliente.pas</Transaction>
+    <Transaction>2023/11/23 17:01:44.000.902,C:\Users\marce\OneDrive\Documentos\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\PedidoDeVendas.dproj</Transaction>
+    <Transaction>2023/11/24 10:22:27.000.514,=C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\Data\uDmVendas.pas</Transaction>
+    <Transaction>2023/11/24 10:22:37.000.693,=C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\view\uCadCliente.pas</Transaction>
+    <Transaction>2023/11/24 11:31:48.000.111,C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\view\uCadCliente.pas=</Transaction>
+    <Transaction>2023/11/24 11:31:54.000.030,C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\Data\uDmVendas.pas=</Transaction>
+    <Transaction>2023/11/24 11:32:06.000.275,=C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\Unit1.pas</Transaction>
+    <Transaction>2023/11/24 12:32:13.000.925,C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\view\uPrincipal.pas=C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\Unit1.pas</Transaction>
+    <Transaction>2023/11/24 12:32:13.000.925,C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\view\uPrincipal.dfm=C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\Unit1.dfm</Transaction>
+    <Transaction>2023/11/24 12:32:54.000.763,=C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\view\uCadCliente.pas</Transaction>
+    <Transaction>2023/11/24 12:33:07.000.874,=C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\Data\uDmVendas.pas</Transaction>
+    <Transaction>2023/11/24 15:26:51.000.496,C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\view\uCadCliente.pas=</Transaction>
+    <Transaction>2023/11/24 15:27:03.000.763,=C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\view\uCadCliente.pas</Transaction>
+    <Transaction>2023/11/24 16:52:04.000.422,=C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\Unit1.pas</Transaction>
+    <Transaction>2023/11/24 16:52:25.000.108,C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\view\uCadProduto.dfm=C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\Unit1.dfm</Transaction>
+    <Transaction>2023/11/24 16:52:25.000.108,C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\view\uCadProduto.pas=C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\Unit1.pas</Transaction>
+    <Transaction>2023/11/28 08:22:13.000.658,=C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\Unit1.pas</Transaction>
+    <Transaction>2023/11/28 08:48:39.000.330,C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\view\uPesquisa.pas=C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\Unit1.pas</Transaction>
+    <Transaction>2023/11/28 08:48:39.000.330,C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\view\uPesquisa.dfm=C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\Unit1.dfm</Transaction>
+    <Transaction>2023/11/28 08:56:44.000.912,=C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\Unit1.pas</Transaction>
+    <Transaction>2023/11/28 08:59:20.000.893,C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\Controller\uUtil.pas=C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\Unit1.pas</Transaction>
+    <Transaction>2023/11/28 17:41:05.000.671,=C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\Unit1.pas</Transaction>
+    <Transaction>2023/11/28 18:04:15.000.350,C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\view\uPedidos.pas=C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\Unit1.pas</Transaction>
+    <Transaction>2023/11/28 18:04:15.000.350,C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\view\uPedidos.dfm=C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\Unit1.dfm</Transaction>
+    <Transaction>2023/11/30 13:56:00.000.673,=C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\Unit1.pas</Transaction>
+    <Transaction>2023/11/30 13:56:59.000.351,C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\Unit1.pas=C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\view\uGeraRelatorio.pas</Transaction>
+    <Transaction>2023/11/30 13:56:59.000.351,C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\Unit1.dfm=C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\source\view\uGeraRelatorio.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

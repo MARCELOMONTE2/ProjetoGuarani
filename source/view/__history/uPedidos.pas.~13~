@@ -1,0 +1,258 @@
+unit uPedidos;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs,  Vcl.StdCtrls, Data.DB, Vcl.Grids,
+  Vcl.DBGrids,udmvendas, Vcl.Buttons, Vcl.ComCtrls, Vcl.ExtCtrls, Vcl.Mask,
+  Vcl.DBCtrls, IBX.IBCustomDataSet, IBX.IBQuery, uPesquisa, IBX.IBTable,
+  Datasnap.DBClient, Datasnap.Provider, uUtil;
+
+type
+  TfrmPedidos = class(TForm)
+    dsPedido: TDataSource;
+    dsItensPedido: TDataSource;
+    Panel1: TPanel;
+    Label1: TLabel;
+    Label3: TLabel;
+    Label2: TLabel;
+    btnPesquisar: TBitBtn;
+    Panel2: TPanel;
+    btnNovoPedido: TBitBtn;
+    btnGravarPedido: TBitBtn;
+    edtId_Cliente: TDBEdit;
+    DBEdit1: TDBEdit;
+    DBEdit2: TDBEdit;
+    cdsPedidos: TClientDataSet;
+    cdsCliPed: TClientDataSet;
+    GroupBox1: TGroupBox;
+    Label4: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    edtDescProdPesq: TEdit;
+    btnAddItem: TBitBtn;
+    edtVlrUnitario: TEdit;
+    btnPesqProd: TBitBtn;
+    DBGrid1: TDBGrid;
+    edtQuant: TEdit;
+    dspPedidos: TDataSetProvider;
+    dspCliPed: TDataSetProvider;
+    dsCliPed: TDataSource;
+    DBEdit4: TDBEdit;
+    dsProdPed: TDataSource;
+    cdsPrdPed: TClientDataSet;
+    dspProdPed: TDataSetProvider;
+    cdsItensPedido: TClientDataSet;
+    dspItensPedido: TDataSetProvider;
+    Panel3: TPanel;
+    DBEdit3: TDBEdit;
+    Label5: TLabel;
+    Label8: TLabel;
+    edtTotalIem: TEdit;
+    Label9: TLabel;
+    Label10: TLabel;
+    cdsItensPedidoID_PEDIDO: TIntegerField;
+    cdsItensPedidoID_ITENS_PEDIDO: TIntegerField;
+    cdsItensPedidoID_PRODUTO: TIntegerField;
+    cdsItensPedidoDESCRICAO: TWideStringField;
+    cdsItensPedidoMARCA: TWideStringField;
+    cdsItensPedidoVALOR_UNITARIO: TBCDField;
+    cdsItensPedidoVALOR_TOTAL: TBCDField;
+    cdsPedidosID_PEDIDO: TIntegerField;
+    cdsPedidosID_CLIENTE: TIntegerField;
+    cdsPedidosDATA_PEDIDO: TDateTimeField;
+    cdsPedidosTOTAL_PEDIDO: TBCDField;
+    cdsItensPedidoQUANTIDADE: TBCDField;
+    DBNavigator1: TDBNavigator;
+    BitBtn7: TBitBtn;
+    cdsCliPedID_CLIENTE: TIntegerField;
+    cdsCliPedCNPJ: TWideStringField;
+    cdsCliPedNOME_FANTASIA: TWideStringField;
+    cdsCliPedRAZAO_SOCIAL: TWideStringField;
+    cdsCliPedTELEFONE: TWideStringField;
+    cdsCliPedLOGRADOURO: TWideStringField;
+    cdsCliPedNUMERO_END: TWideStringField;
+    cdsCliPedBAIRRO: TWideStringField;
+    cdsCliPedCIDADE: TWideStringField;
+    cdsCliPedCOMPLEMENTO_END: TWideStringField;
+    cdsCliPedUF: TWideStringField;
+    btnAlterarPedido: TBitBtn;
+    btnPesqPedido: TBitBtn;
+    cdsItensPedidoNumItem: TIntegerField;
+    procedure btnNovoPedidoClick(Sender: TObject);
+    procedure btnPesquisarClick(Sender: TObject);
+    procedure btnGravarPedidoClick(Sender: TObject);
+    procedure btnPesqProdClick(Sender: TObject);
+    procedure edtQuantExit(Sender: TObject);
+    procedure edtQuantKeyPress(Sender: TObject; var Key: Char);
+    procedure edtVlrUnitarioKeyPress(Sender: TObject; var Key: Char);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnAddItemClick(Sender: TObject);
+    procedure btnAlterarPedidoClick(Sender: TObject);
+    procedure BitBtn7Click(Sender: TObject);
+  private
+    { Private declarations }
+    CodItemPesq : Integer;
+    function BuscaClientePedido(codCli: Integer):String;
+    procedure InicializaPedido;
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPedidos: TfrmPedidos;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmPedidos.BitBtn7Click(Sender: TObject);
+var
+  msg: String;
+
+begin
+  msg :=  'Deseja excluir o item: '+ cdsItensPedidoDESCRICAO.asstring+ '?' ;
+
+  If  MessageDlg(msg,mtConfirmation,[mbyes,mbno],0)=mryes then
+  begin
+    if not DmVendas.qryCliente.Active then
+      DmVendas.qryCliente.open;
+    try
+      DmVendas.qryCliente.delete;
+      DmVendas.IBTransaction1.Commit;
+      ShowMessage('Cliente excluído com sucesso.');
+      DmVendas.qryCliente.open;
+
+     Except
+    on E: Exception do
+      ShowMessage('Erro ao tentar excluir o cliente: ' + E.Message );
+    end;
+  end;
+end;
+
+procedure TfrmPedidos.btnAddItemClick(Sender: TObject);
+begin
+  try
+    if not cdsItensPedido.Active then
+      cdsItensPedido.Open;
+    cdsItensPedido.Append;
+    cdsItensPedidoID_PEDIDO.Value := cdsPedidosID_PEDIDO.AsInteger;
+    cdsItensPedidoID_PRODUTO.Value := CodItemPesq;
+    cdsItensPedidoQUANTIDADE.Value := StrToFloat(edtQuant.Text);
+    cdsItensPedidoVALOR_UNITARIO.Value := StrToFloat(edtVlrUnitario.Text);
+    cdsItensPedidoVALOR_TOTAL.Value := StrToFloat(edtTotalIem.Text);
+    cdsItensPedido.ApplyUpdates(1);
+    cdsItensPedido.Refresh;
+    ShowMessage('Item adicionado com sucesso.');
+
+  Except
+    on E: Exception do
+      ShowMessage('Erro ao tentar gravar o item: ' + E.Message );
+  end;
+
+end;
+
+procedure TfrmPedidos.btnAlterarPedidoClick(Sender: TObject);
+begin
+  if not cdsPedidos.Active then
+    cdsPedidos.open;
+  cdspedidos.Edit;
+end;
+
+procedure TfrmPedidos.btnGravarPedidoClick(Sender: TObject);
+begin
+  try
+    if cdsPedidos.State in [dsInsert, dsEdit] then
+    begin
+      cdsPedidos.ApplyUpdates(1);
+      ShowMessage('Pedido gravado com sucesso.');
+    end;
+
+  Except
+    on E: Exception do
+      ShowMessage('Erro ao tentar gravar o pedido: ' + E.Message );
+  end;
+
+end;
+
+procedure TfrmPedidos.btnNovoPedidoClick(Sender: TObject);
+begin
+  InicializaPedido;
+  edtId_Cliente.SetFocus;
+end;
+
+procedure TfrmPedidos.btnPesqProdClick(Sender: TObject);
+begin
+  try
+    cdsPedidos.Close;
+    FrmPesquisa := TFrmPesquisa.Create(self,'PEDIDO');
+    FrmPesquisa.ShowModal;
+    cdsPedidos.Open;
+  finally
+    FrmPesquisa.Free;
+  end;
+end;
+
+procedure TfrmPedidos.btnPesquisarClick(Sender: TObject);
+begin
+  try
+    FrmPesquisa := TFrmPesquisa.Create(self,'CLIENTE_PEDIDO');
+    FrmPesquisa.ShowModal;
+
+  finally
+    FrmPesquisa.Free;
+  end;
+
+end;
+
+function TfrmPedidos.BuscaClientePedido(codCli: Integer): String;
+var
+  qryAux: TIBQuery;
+
+begin
+ // qryAux := TIB
+
+end;
+
+procedure TfrmPedidos.edtQuantExit(Sender: TObject);
+var
+  quant,
+  vlritem,
+  total: Double;
+begin
+  quant   := strToFloat(edtQuant.Text);
+  vlritem := strToFloat(edtVlrUnitario.Text);
+  total := quant * vlritem;
+  edtTotalIem.Text := FormatFloat('#,##0.00', total);
+end;
+
+procedure TfrmPedidos.edtQuantKeyPress(Sender: TObject; var Key: Char);
+begin
+   Key := TUtil.NumberFloatOnly(key,TEdit(Sender).Text);
+end;
+
+procedure TfrmPedidos.edtVlrUnitarioKeyPress(Sender: TObject; var Key: Char);
+begin
+   Key := TUtil.NumberFloatOnly(key,TEdit(Sender).Text);
+end;
+
+procedure TfrmPedidos.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := caFree;
+  Release;
+  frmPedidos := nil;
+end;
+
+procedure TfrmPedidos.InicializaPedido;
+begin
+  if not cdsPedidos.Active then
+    cdsPedidos.open;
+
+  cdspedidos.Append;
+  cdsPedidos.FieldByName('DATA_PEDIDO').Value := now;
+  cdsPedidos.FieldByName('TOTAL_PEDIDO').Value := 0;
+
+end;
+
+end.

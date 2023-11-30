@@ -1,0 +1,92 @@
+unit uPesquisa;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  IBX.IBCustomDataSet, IBX.IBQuery, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
+  UdmVendas, uUtil;
+
+type
+  TFrmPesquisa = class(TForm)
+    dsPesquisa: TDataSource;
+    qryPesquisa: TIBQuery;
+    DBGrid1: TDBGrid;
+    Panel1: TPanel;
+    rgFiltro: TRadioGroup;
+    BitBtn1: TBitBtn;
+    edtValor: TEdit;
+    Panel2: TPanel;
+    BitBtn2: TBitBtn;
+    BitBtn4: TBitBtn;
+    procedure BitBtn1Click(Sender: TObject);
+    procedure edtValorKeyPress(Sender: TObject; var Key: Char);
+    procedure BitBtn2Click(Sender: TObject);
+    procedure BitBtn4Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmPesquisa: TFrmPesquisa;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFrmPesquisa.BitBtn1Click(Sender: TObject);
+begin
+  if edtValor.Text = '' then
+  begin
+    ShowMessage('Informe o valor campo de pesquisa.');
+    edtValor.SetFocus;
+    exit;
+  end;
+
+  case rgFiltro.ItemIndex of
+    0:
+    Begin
+      //pesquisa por codigo
+      qryPesquisa.Close;
+      qryPesquisa.SQL.Text:= 'Select * from clientes where id_cliente = '+ edtValor.text;
+      qryPesquisa.Open;
+    End;
+    1:
+    Begin
+       //pesquisa por Nome
+      qryPesquisa.Close;
+      qryPesquisa.SQL.Text:= 'Select * from clientes where Nome_Fantasia like '+ QuotedStr('%'+edtValor.text+'%');
+      qryPesquisa.Open;
+
+    End;
+    2:
+    Begin
+
+    End;
+
+   end;
+end;
+
+procedure TFrmPesquisa.BitBtn2Click(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TFrmPesquisa.BitBtn4Click(Sender: TObject);
+begin
+  DmVendas.qryCliente.Close;
+  DmVendas.qryCliente.SQL.Text := 'Select * from clientes where id_cliente = '+ qryPesquisa.FieldByName('ID_cliente').AsString;
+  DmVendas.qryCliente.Open;
+  close;
+end;
+
+procedure TFrmPesquisa.edtValorKeyPress(Sender: TObject; var Key: Char);
+begin
+  if  rgFiltro.ItemIndex = 0 then
+    Key := TUtil.NumberIntegerOnly(key,TEdit(Sender).Text);
+end;
+
+end.

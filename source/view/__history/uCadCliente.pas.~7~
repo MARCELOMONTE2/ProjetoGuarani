@@ -1,0 +1,114 @@
+unit uCadCliente;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uDmVendas, Data.DB, Vcl.Grids,
+  Vcl.DBGrids, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls, Vcl.Buttons;
+
+type
+  TfrmCadCliente = class(TForm)
+    Label1: TLabel;
+    dsCliente: TDataSource;
+    Panel1: TPanel;
+    DBGrid1: TDBGrid;
+    Panel2: TPanel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label6: TLabel;
+    DBEdit1: TDBEdit;
+    edtNome: TDBEdit;
+    DBEdit3: TDBEdit;
+    DBEdit4: TDBEdit;
+    DBEdit6: TDBEdit;
+    Label5: TLabel;
+    GroupBox1: TGroupBox;
+    Label7: TLabel;
+    DBEdit5: TDBEdit;
+    Label8: TLabel;
+    DBEdit7: TDBEdit;
+    Label9: TLabel;
+    DBEdit8: TDBEdit;
+    DBEdit9: TDBEdit;
+    Label10: TLabel;
+    DBEdit11: TDBEdit;
+    Label12: TLabel;
+    btnNovo: TBitBtn;
+    btnAlterar: TBitBtn;
+    btnExcluir: TBitBtn;
+    brnSair: TBitBtn;
+    btnSalvar: TBitBtn;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnNovoClick(Sender: TObject);
+    procedure btnSalvarClick(Sender: TObject);
+    procedure brnSairClick(Sender: TObject);
+  private
+    procedure abreConexao;
+    procedure fechaConexao;
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCadCliente: TfrmCadCliente;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmCadCliente.abreConexao;
+begin
+  DmVendas.IBConectVendas.Open;
+  DmVendas.IBTransaction1.Active := true;
+end;
+
+procedure TfrmCadCliente.brnSairClick(Sender: TObject);
+begin
+  close;
+end;
+
+procedure TfrmCadCliente.btnNovoClick(Sender: TObject);
+begin
+  abreConexao;
+  if DmVendas.TB_Cliente = nil then
+    DmVendas.TB_Cliente.open;
+  DmVendas.TB_Cliente.Append;
+  edtNome.SetFocus;
+
+end;
+
+procedure TfrmCadCliente.btnSalvarClick(Sender: TObject);
+begin
+  if DmVendas.TB_Cliente.State in [dsInsert,dsedit] then
+  begin
+    try
+      DmVendas.TB_Cliente.Post;
+      DmVendas.IBTransaction1.Commit;
+      ShowMessage('Cliente incluido com sucesso.');
+      DmVendas.TB_Cliente.close;
+      DmVendas.TB_Cliente.Open;
+
+    Except
+    on E: Exception do
+      ShowMessage('Erro ao incluir o cliente: ' + E.Message );
+    end;
+
+  end;
+
+end;
+
+procedure TfrmCadCliente.fechaConexao;
+begin
+
+
+end;
+
+procedure TfrmCadCliente.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+    Action := cafree;
+end;
+
+end.

@@ -1,0 +1,39 @@
+unit uPrincipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Imaging.pngimage, Vcl.ExtCtrls,
+  System.ImageList, Vcl.ImgList, Vcl.CategoryButtons, Vcl.WinXCtrls;
+
+type
+  TfrmPrincipal = class(TForm)
+    Panel1: TPanel;
+    Image1: TImage;
+    SplitView1: TSplitView;
+    CategoryButtons1: TCategoryButtons;
+    ImageList1: TImageList;
+    procedure Image1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPrincipal: TfrmPrincipal;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmPrincipal.Image1Click(Sender: TObject);
+begin
+ if SplitView1.Opened then
+    SplitView1.Close
+ else
+    SplitView1.Open;
+end;
+
+end.

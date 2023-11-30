@@ -1,0 +1,103 @@
+unit uDmVendas;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Data.DB, IBX.IBDatabase, IBX.IBCustomDataSet,
+  IBX.IBQuery, IBX.IBTable, IBX.IBUpdateSQL, Datasnap.Provider,
+  Datasnap.DBClient;
+
+type
+  TDmVendas = class(TDataModule)
+    IBConectVendas: TIBDatabase;
+    IBTransaction1: TIBTransaction;
+    qryProduto: TIBQuery;
+    qryProdutoID_PRODUTO: TIntegerField;
+    qryProdutoDESCRICAO: TIBStringField;
+    qryProdutoMARCA: TIBStringField;
+    qryProdutoPRECO: TIBBCDField;
+    qryCliente: TIBQuery;
+    qryClienteBAIRRO: TIBStringField;
+    qryClienteCIDADE: TIBStringField;
+    qryClienteCNPJ: TIBStringField;
+    qryClienteCOMPLEMENTO_END: TIBStringField;
+    qryClienteID_CLIENTE: TIntegerField;
+    qryClienteLOGRADOURO: TIBStringField;
+    qryClienteNOME_FANTASIA: TIBStringField;
+    qryClienteNUMERO_END: TIBStringField;
+    qryClienteRAZAO_SOCIAL: TIBStringField;
+    qryClienteTELEFONE: TIBStringField;
+    qryClienteUF: TIBStringField;
+    qryPedidos: TIBQuery;
+    IBUpdateSQLProduto: TIBUpdateSQL;
+    IBUpdateSQLPedidos: TIBUpdateSQL;
+    qryPedidosDATA_PEDIDO: TDateTimeField;
+    qryPedidosID_CLIENTE: TIntegerField;
+    qryPedidosID_PEDIDO: TIntegerField;
+    qryPedidosTOTAL_PEDIDO: TIBBCDField;
+    qryItensPedidos: TIBQuery;
+    IBUpdateSQLItensPedido: TIBUpdateSQL;
+    qryItensPedidosID_PEDIDO: TIntegerField;
+    qryItensPedidosID_ITENS_PEDIDO: TIntegerField;
+    qryItensPedidosID_PRODUTO: TIntegerField;
+    qryItensPedidosDESCRICAO: TIBStringField;
+    qryItensPedidosMARCA: TIBStringField;
+    qryItensPedidosPRECO: TIBBCDField;
+    qryItensPedidosQUANTIDADE: TIntegerField;
+    qryItensPedidosVALOR_TOTAL: TIBBCDField;
+    qryItensPedidosVALOR_UNITARIO: TIBBCDField;
+    qryItensPedidosTOTAL_PEDIDO: TIBBCDField;
+    qryItensPedidosDATA_PEDIDO: TDateTimeField;
+    qryItensPedidosID_CLIENTE: TIntegerField;
+    qryItensPedidosNOME_FANTASIA: TIBStringField;
+    qryCliPed: TIBQuery;
+    IntegerField1: TIntegerField;
+    IBStringField1: TIBStringField;
+    IBStringField2: TIBStringField;
+    IBStringField3: TIBStringField;
+    IBStringField4: TIBStringField;
+    IBStringField5: TIBStringField;
+    IBStringField6: TIBStringField;
+    IBStringField7: TIBStringField;
+    IBStringField8: TIBStringField;
+    IBStringField9: TIBStringField;
+    IBStringField10: TIBStringField;
+    qryProdPed: TIBQuery;
+    IntegerField2: TIntegerField;
+    IBStringField11: TIBStringField;
+    IBStringField12: TIBStringField;
+    IBBCDField1: TIBBCDField;
+    IBUpdateSQLCliente: TIBUpdateSQL;
+    qryProdPesq: TIBQuery;
+    qryCliPesq: TIBQuery;
+    qryProdPesqID_PRODUTO: TIntegerField;
+    qryProdPesqDESCRICAO: TIBStringField;
+    qryProdPesqMARCA: TIBStringField;
+    qryProdPesqPRECO: TIBBCDField;
+    qryCliPesqID_CLIENTE: TIntegerField;
+    qryCliPesqNOME_FANTASIA: TIBStringField;
+    qryCliPesqRAZAO_SOCIAL: TIBStringField;
+    qryCliPesqCNPJ: TIBStringField;
+    qryCliPesqTELEFONE: TIBStringField;
+    qryCliPesqLOGRADOURO: TIBStringField;
+    qryCliPesqNUMERO_END: TIBStringField;
+    qryCliPesqBAIRRO: TIBStringField;
+    qryCliPesqCIDADE: TIBStringField;
+    qryCliPesqUF: TIBStringField;
+    qryCliPesqCOMPLEMENTO_END: TIBStringField;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  DmVendas: TDmVendas;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+end.

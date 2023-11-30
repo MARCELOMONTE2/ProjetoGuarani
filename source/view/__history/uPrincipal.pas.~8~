@@ -1,0 +1,95 @@
+unit uPrincipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Imaging.pngimage, Vcl.ExtCtrls,
+  System.ImageList, Vcl.ImgList, Vcl.CategoryButtons, Vcl.WinXCtrls,
+  uCadCliente, uCadProduto, udmvendas, uPedidos,uGeraRelatorio;
+
+type
+  TfrmPrincipal = class(TForm)
+    Panel1: TPanel;
+    Image1: TImage;
+    SplitView1: TSplitView;
+    CategoryButtons1: TCategoryButtons;
+    ImageList1: TImageList;
+    procedure Image1Click(Sender: TObject);
+    procedure CategoryButtons1Categories0Items0Click(Sender: TObject);
+    procedure CategoryButtons1Categories0Items1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure CategoryButtons1Categories0Items2Click(Sender: TObject);
+    procedure CategoryButtons1Categories0Items3Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPrincipal: TfrmPrincipal;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmPrincipal.CategoryButtons1Categories0Items0Click(Sender: TObject);
+begin
+  if frmCadCliente = nil then
+    frmCadCliente := TfrmCadCliente.Create(self);
+
+  frmCadCliente.Show;
+
+end;
+
+procedure TfrmPrincipal.CategoryButtons1Categories0Items1Click(Sender: TObject);
+begin
+  if frmCadProduto = nil then
+    frmCadProduto := TfrmCadProduto.Create(self);
+
+  frmCadProduto.Show;
+
+end;
+
+procedure TfrmPrincipal.CategoryButtons1Categories0Items2Click(Sender: TObject);
+begin
+  if frmPedidos = nil then
+    frmPedidos := TfrmPedidos.Create(self);
+
+  frmPedidos.Show;
+
+end;
+
+procedure TfrmPrincipal.CategoryButtons1Categories0Items3Click(Sender: TObject);
+begin
+  if frmGeraRelatorio = nil then
+    frmGeraRelatorio := TfrmGeraRelatorio.Create(self);
+
+  frmGeraRelatorio.Show;
+
+end;
+
+procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  DmVendas.IBConectVendas.Close;
+  DmVendas.IBTransaction1.Active := False;
+end;
+
+procedure TfrmPrincipal.FormCreate(Sender: TObject);
+begin
+  DmVendas.IBConectVendas.Open;
+  DmVendas.IBTransaction1.Active := True;
+  SplitView1.Close;
+end;
+
+procedure TfrmPrincipal.Image1Click(Sender: TObject);
+begin
+ if SplitView1.Opened then
+    SplitView1.Close
+ else
+    SplitView1.Open;
+end;
+
+end.

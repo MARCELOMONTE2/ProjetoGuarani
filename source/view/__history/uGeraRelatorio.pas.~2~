@@ -1,0 +1,51 @@
+unit uGeraRelatorio;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, frxClass, frxExportBaseDialog,
+  frxExportPDF, frxDBSet, frCoreClasses, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask,
+  Vcl.ExtCtrls, Vcl.DBCtrls, udmVendas, Vcl.ComCtrls, Data.DB, Vcl.Grids,
+  Vcl.DBGrids;
+
+type
+  TfrmGeraRelatorio = class(TForm)
+    frxReport1: TfrxReport;
+    frxDBDataset1: TfrxDBDataset;
+    frxPDFExport1: TfrxPDFExport;
+    DataSource1: TDataSource;
+    DBGrid1: TDBGrid;
+    Panel1: TPanel;
+    edtDataIni: TDateTimePicker;
+    Label3: TLabel;
+    Label1: TLabel;
+    edtDataFim: TDateTimePicker;
+    btnGeraRel: TBitBtn;
+    Panel3: TPanel;
+    BitBtn1: TBitBtn;
+    procedure btnGeraRelClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmGeraRelatorio: TfrmGeraRelatorio;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmGeraRelatorio.btnGeraRelClick(Sender: TObject);
+begin
+  //if not DmVendas.qryRelatorio.Active then
+  DmVendas.qryRelatorio.close;
+  DmVendas.qryRelatorio.ParamByName('dtIni').AsDate := edtDataIni.Date;
+  DmVendas.qryRelatorio.ParamByName('dtFim').AsDatetime := edtDataFim.Datetime;
+  DmVendas.qryRelatorio.Open;
+
+end;
+
+end.

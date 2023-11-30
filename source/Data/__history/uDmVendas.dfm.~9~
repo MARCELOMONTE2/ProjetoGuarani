@@ -1,0 +1,197 @@
+object DmVendas: TDmVendas
+  Height = 480
+  Width = 640
+  object IBConectVendas: TIBDatabase
+    Connected = True
+    DatabaseName = 
+      'C:\Users\marce\OneDrive\Documentos\ProjetoGuarani\DB\VENDAS_DB.F' +
+      'DB'
+    Params.Strings = (
+      'user_name=SYSDBA'
+      'password=masterkey'
+      'lc_ctype=WIN1252')
+    LoginPrompt = False
+    DefaultTransaction = IBTransaction1
+    ServerType = 'IBServer'
+    Left = 32
+    Top = 8
+  end
+  object IBTransaction1: TIBTransaction
+    DefaultDatabase = IBConectVendas
+    Params.Strings = (
+      'read_committed'
+      'rec_version'
+      'nowait')
+    Left = 136
+    Top = 8
+  end
+  object qryProduto: TIBQuery
+    Database = IBConectVendas
+    Transaction = IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
+    SQL.Strings = (
+      'SELECT '
+      'ID_PRODUTO, DESCRICAO, MARCA, PRECO'
+      ' FROM PRODUTO')
+    PrecommittedReads = False
+    Left = 296
+    Top = 16
+    object qryProdutoID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+      Origin = 'PRODUTO.ID_PRODUTO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryProdutoDESCRICAO: TIBStringField
+      FieldName = 'DESCRICAO'
+      Origin = 'PRODUTO.DESCRICAO'
+      Required = True
+      Size = 50
+    end
+    object qryProdutoMARCA: TIBStringField
+      FieldName = 'MARCA'
+      Origin = 'PRODUTO.MARCA'
+      Required = True
+      Size = 50
+    end
+    object qryProdutoPRECO: TIBBCDField
+      FieldName = 'PRECO'
+      Origin = 'PRODUTO.PRECO'
+      Required = True
+      Precision = 18
+      Size = 2
+    end
+  end
+  object qryCliente: TIBQuery
+    Database = IBConectVendas
+    Transaction = IBTransaction1
+    AutoCalcFields = False
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
+    SQL.Strings = (
+      'select FIRST 10 BAIRRO, CIDADE, CNPJ, COMPLEMENTO_END, '
+      'ID_CLIENTE, LOGRADOURO, NOME_FANTASIA, '
+      'NUMERO_END, RAZAO_SOCIAL, TELEFONE, UF'
+      'from CLIENTES  order by ID_CLIENTE desc')
+    UpdateObject = IBUpdateSQL1
+    PrecommittedReads = False
+    Left = 216
+    Top = 8
+    object qryClienteID_CLIENTE: TIntegerField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'ID_CLIENTE'
+      Origin = 'CLIENTES.ID_CLIENTE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = True
+      Required = True
+    end
+    object qryClienteCNPJ: TIBStringField
+      FieldName = 'CNPJ'
+      Origin = 'CLIENTES.CNPJ'
+      Size = 14
+    end
+    object qryClienteNOME_FANTASIA: TIBStringField
+      FieldName = 'NOME_FANTASIA'
+      Origin = 'CLIENTES.NOME_FANTASIA'
+      Required = True
+      Size = 50
+    end
+    object qryClienteRAZAO_SOCIAL: TIBStringField
+      FieldName = 'RAZAO_SOCIAL'
+      Origin = 'CLIENTES.RAZAO_SOCIAL'
+      Required = True
+      Size = 50
+    end
+    object qryClienteTELEFONE: TIBStringField
+      FieldName = 'TELEFONE'
+      Origin = 'CLIENTES.TELEFONE'
+      Required = True
+      EditMask = '\(99\)00000-0000;0;_'
+      Size = 15
+    end
+    object qryClienteLOGRADOURO: TIBStringField
+      FieldName = 'LOGRADOURO'
+      Origin = 'CLIENTES.LOGRADOURO'
+      Size = 50
+    end
+    object qryClienteNUMERO_END: TIBStringField
+      FieldName = 'NUMERO_END'
+      Origin = 'CLIENTES.NUMERO_END'
+    end
+    object qryClienteBAIRRO: TIBStringField
+      FieldName = 'BAIRRO'
+      Origin = 'CLIENTES.BAIRRO'
+      Size = 50
+    end
+    object qryClienteCIDADE: TIBStringField
+      FieldName = 'CIDADE'
+      Origin = 'CLIENTES.CIDADE'
+      Size = 50
+    end
+    object qryClienteCOMPLEMENTO_END: TIBStringField
+      FieldName = 'COMPLEMENTO_END'
+      Origin = 'CLIENTES.COMPLEMENTO_END'
+      Size = 50
+    end
+    object qryClienteUF: TIBStringField
+      FieldName = 'UF'
+      Origin = 'CLIENTES.UF'
+      FixedChar = True
+      Size = 2
+    end
+  end
+  object IBUpdateSQL1: TIBUpdateSQL
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID_CLIENTE,'
+      '  NOME_FANTASIA,'
+      '  RAZAO_SOCIAL,'
+      '  CNPJ,'
+      '  TELEFONE,'
+      '  LOGRADOURO,'
+      '  NUMERO_END,'
+      '  BAIRRO,'
+      '  CIDADE,'
+      '  UF,'
+      '  COMPLEMENTO_END'
+      'from CLIENTES '
+      'where'
+      '  ID_CLIENTE = :ID_CLIENTE')
+    ModifySQL.Strings = (
+      'update CLIENTES'
+      'set'
+      '  BAIRRO = :BAIRRO,'
+      '  CIDADE = :CIDADE,'
+      '  CNPJ = :CNPJ,'
+      '  COMPLEMENTO_END = :COMPLEMENTO_END,'
+      ''
+      '  LOGRADOURO = :LOGRADOURO,'
+      '  NOME_FANTASIA = :NOME_FANTASIA,'
+      '  NUMERO_END = :NUMERO_END,'
+      '  RAZAO_SOCIAL = :RAZAO_SOCIAL,'
+      '  TELEFONE = :TELEFONE,'
+      '  UF = :UF'
+      'where'
+      '  ID_CLIENTE = :OLD_ID_CLIENTE')
+    InsertSQL.Strings = (
+      'insert into CLIENTES'
+      
+        '  (BAIRRO, CIDADE, CNPJ, COMPLEMENTO_END, ID_CLIENTE, LOGRADOURO' +
+        ', NOME_FANTASIA, '
+      '   NUMERO_END, RAZAO_SOCIAL, TELEFONE, UF)'
+      'values'
+      
+        '  (:BAIRRO, :CIDADE, :CNPJ, :COMPLEMENTO_END, :ID_CLIENTE, :LOGR' +
+        'ADOURO, '
+      '   :NOME_FANTASIA, :NUMERO_END, :RAZAO_SOCIAL, :TELEFONE, :UF)')
+    DeleteSQL.Strings = (
+      'delete from CLIENTES'
+      'where'
+      '  ID_CLIENTE = :OLD_ID_CLIENTE')
+    Left = 56
+    Top = 88
+  end
+end
